@@ -4,6 +4,6 @@ I am a student at IVE enrolled in a Cloud and Datacenter Administration course
 
 ## check out my articles
 
-1. <a href="https://github.karlcch.com/articles/1.S3_CF_Site">Host your static website on S3 for free\*</a>
+1. <a href="articles/1.S3_CF_Site">Host your static website on S3 for free\*</a>
 
-   This is a Step By Step guide to host your website on S3 with CloudFront to bring your website globally  
+   This is a Step By Step guide to host your website on S3 with CloudFront to bring your website globally
