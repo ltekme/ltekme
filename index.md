@@ -8,6 +8,6 @@ I am a student at IVE enrolled in a Cloud and Datacenter Administration course
 
    This is a Step By Step guide to host your website on S3 with CloudFront to bring your website globally  
 
-2. <a href="https://github.karlcch.com/articles/2.using-flask-to-create-static-site.md">Using flask to creat my static website</a>
+2. <a href="https://github.karlcch.com/articles/2.using-flask-to-create-static-site">Using flask to creat my static website</a>
 
    This is a walkthrough on how I used flask to create my site `structurally`
