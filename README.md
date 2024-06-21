@@ -2,13 +2,24 @@
 
 I am a student at IVE enrolled in a Cloud and Datacenter Administration course
 
-## check out my articles
+- [Linkedin](https://www.linkedin.com/in/cch-karl/)
+- [Website](https://karlcch.com/)
+- [Github is my blog](https://github.com/ltekme)
 
-1. <a href="articles/1.S3_CF_Site">Host your static website on S3 for free\*</a>
+## check out my blogs
 
-   This is a Step By Step guide to host your website on S3 with CloudFront to bring your website globally
+- [Using flask to creat my static website](blogs/2.using-flask-to-create-static-site.md)
 
+    This is a walkthrough on how I used flask to create my site `structurally`
 
-2. <a href="articles/2.using-flask-to-create-static-site.md">Using flask to creat my static website</a>
+More at [/blog](/blogs)
 
-   This is a walkthrough on how I used flask to create my site `structurally`
+## Fun MicroProjects
+
+yes MicroProjects is now a word, here is the latest
+
+- [Py-Text-Scrambler](./Py-Text-Scrambler/README.MD)
+
+    A small snippet of code I that I use to embed some message in a way that is not overious.
+
+More at [/Fun](/Fun)
