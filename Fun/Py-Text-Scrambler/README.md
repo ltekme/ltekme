@@ -6,6 +6,8 @@ One of my uses are making the hostname of my routers.
 
 I know, useless.
 
+[↩️ go back](../)
+
 ## Useage - Encoding
 
 To encode text to hex then to base64, execute `encode.py`

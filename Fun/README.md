@@ -1,8 +1,8 @@
 # Fun Folder
 
-This folder is where I place my code snipits what can be used as a reference later down the road.
+A place where I store my micro codes and micro projects
 
-Also a place where I store my micro codes and micro projects
+[↩️ go back](../)
 
 ## Latest
 

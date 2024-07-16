@@ -2,6 +2,8 @@
 
 A place where I put my blogs
 
+[↩️ go back](../)
+
 ## Latest
 
 - [Host your static website on S3 for free\*](1.Using-S3-to-host-static-website.md)

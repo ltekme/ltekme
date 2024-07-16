@@ -23,3 +23,7 @@ yes MicroProjects is now a word, here is the latest
     A small snippet of code I that I use to embed some message in a way that is not overious.
 
 More at [/Fun](/Fun)
+
+## Snippets and Templates
+
+Refer to [Snippets and Templates](Snippets-and-Templates)
