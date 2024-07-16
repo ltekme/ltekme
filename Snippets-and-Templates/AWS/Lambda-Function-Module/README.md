@@ -74,7 +74,7 @@ module "user_input_lambda" {
   source = "./modules/lambda"
 
   aws-region      = var.aws-region
-  resource-prefix = var.project_name
+  prefix          = var.project_name
   name            = "user-input-lambda"
   description     = "Lambda Function Used to server user input"
 
