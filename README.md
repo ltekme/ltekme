@@ -18,7 +18,7 @@ More at [/blog](/blogs)
 
 yes MicroProjects is now a word, here is the latest
 
-- [Py-Text-Scrambler](/Fun/Py-Text-Scrambler/README.MD)
+- [Py-Text-Scrambler](/Fun/Py-Text-Scrambler)
 
     A small snippet of code I that I use to embed some message in a way that is not overious.
 
