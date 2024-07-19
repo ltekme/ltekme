@@ -6,7 +6,7 @@ I am a student at IVE enrolled in a Cloud and Datacenter Administration course
 - [Website](https://karlcch.com/)
 - [Github is my blog](https://github.com/ltekme)
 
-## check out my blogs
+## Blogs
 
 - [Using flask to creat my static website](/blogs/2.using-flask-to-create-static-site.md)
 

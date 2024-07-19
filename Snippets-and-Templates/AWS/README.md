@@ -4,20 +4,28 @@ A Collection of snippets and templates for aws
 
 [↩️ go back](../)
 
-## Contents
+## Table Of Contents
 
-- [AWS Terraform Base Template](Terraform-Template)
+- [AWS Snippets and Templates](#aws-snippets-and-templates)
+  - [Table Of Contents](#table-of-contents)
+  - [Terraform Contents](#terraform-contents)
+    - [Terraform Lambda Function Module](#terraform-lambda-function-module)
+    - [AWS API Gateway Template](#aws-api-gateway-template)
+  - [Additional Useful Resources](#additional-useful-resources)
+    - [Lambda Hello World Python Template](#lambda-hello-world-python-template)
 
-  A folder containing the base code blocks for aws with terraform
+## Terraform Contents
 
-- [Lambda Function Python Tamplate](Lambda-HTTP.py)
+### [Terraform Lambda Function Module](Lambda-Function-Module)
 
-  A file containing the content of base python lambda function
+Custom Lambda Function Module that support the use of aws acaedmy lab.
 
-- [HTTP API Gateway Template](HTTP-API-GW.tf)
-  
-  AWS API Gateway Terraform Template
+### [AWS API Gateway Template](API-Gateway-Templates)
 
-- [Lambda Function Module](Lambda-Function-Module)
+Snippets of AWS API Gateway Terraform Code Blocks
 
-  Module for lambda function. Universal for AWS Acaedmy and AWS Account.
+## Additional Useful Resources
+
+### [Lambda Hello World Python Template](Lambda-HTTP.py)
+
+A template for lambda python function

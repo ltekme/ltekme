@@ -22,7 +22,7 @@ provider "aws" {
   default_tags {
     tags = {
       Created_by = "Terrafrom"
-      Project    = var.project_name
+      Project    = "${var.project-name}"
     }
   }
   region = var.aws-region

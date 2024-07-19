@@ -2,6 +2,8 @@
 
 This is just a lambda function rapped in a terraform module for a cleaner root module
 
+[↩️ go back](../)
+
 ## Inputs
 
 | arg                         | default | description                                                       | type             |

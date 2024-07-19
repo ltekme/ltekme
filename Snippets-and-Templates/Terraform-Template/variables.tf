@@ -2,7 +2,7 @@
 Default Variables
 
 ########################################################*/
-variable "project_name" {
+variable "project-name" {
   description = "The name of the project(can only contain letters, numbers, and hyphens)"
   type        = string
   default     = "Tamplate"
