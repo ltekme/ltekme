@@ -1,10 +1,10 @@
 # Using Flask to generate static website
 
-![Banner image](images/2.banner.png)
+![Banner image](images/banner.png)
 
 This is a post about me using Flask Jinja templating to "standardize" [my static website](karlcch.com)
 
-[↩️ go back](README.md)
+[↩️ go back](../)
 
 ## Introductions
 

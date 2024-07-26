@@ -1,12 +1,12 @@
 # Using S3 with CloudFront to host Static Websites for FREE\*
 
-![banner](images/1/banner.png)
+![banner](images/banner.png)
 
 The best option for sites that only contain static content.
 
 \*charges may apply when you have too much traffic to your website. refer to the pricing of S3 and Cloudfront.
 
-[↩️ go back](README.md)
+[↩️ go back](../)
 
 ## Introductions
 
@@ -16,20 +16,10 @@ In that case, why waste all those resources just to serve some texts over the in
 
 This is a step by step walkthrough on hosting you website using S3. We will be configuring S3, Route 53, CloudFront, ACM. This solution should be free minus the Route 53.
 
-If you don't have a site, I have a [site.zip](/blogs/contents/s3_static_site.zip) in my repo, use it for fun.
+If you don't have a site, I have a [s3_static_site.zip](contents/s3_static_site.zip) in my repo, use it for fun.
 
-## Steps
+## Table of contents
 
-1. AWS Account
-2. Create S3 bucket
-3. Upload content
-4. Enable website hosting
-5. Configuring Domain
-6. Create CloudFront distribution
-7. Obtaining a TLS certificate
-8. Setting up CNAME for distribution
-9. HTTP to HTTPS redirect (Optional
-10. Celebrate
 
 ## Step 1: AWS Account
 
@@ -50,18 +40,18 @@ Before we can have our website, we need a place to store the content.
 
 1. Search for `S3` on the search bar in the management console. Click the first one that pops up.
 
-   ![look for s3](images/1/Step1.1.png)
+   ![look for s3](images/Step1.1.png)
 
 2. Now we need to create a bucket to store our website's content. Go ahead and create a bucket.
   
-   ![create bucket](images/1/Step1.2.png)
+   ![create bucket](images/Step1.2.png)
 
 3. we are going to specify some options for our bucket.
 
    - For the bucket name, use your website domain name, for me, it's `karlcch.com`
    - The closest region to you should be selected.
 
-   ![options](images/1/Step1.3.png)
+   ![options](images/Step1.3.png)
 
 ## Step 3: Upload content
 
@@ -69,7 +59,7 @@ After creating out bucket, upload the content into the bucket
 
 1. Select the bucket you just created
 
-   ![select bucket](images/1/Step2.1.png)
+   ![select bucket](images/Step2.1.png)
 
 2. Click on upload
 
@@ -77,15 +67,15 @@ After creating out bucket, upload the content into the bucket
    - it can be renamed to whatever.
    - we will define the entry point for our website in Step 3
 
-   ![click upload](images/1/Step2.2.png)
+   ![click upload](images/Step2.2.png)
 
 3. click on add files and select all website content including folders.
 
-   ![upload content](images/1/Step2.3.png)
+   ![upload content](images/Step2.3.png)
 
    Once that's done click close at the close button at the top right corner
 
-   ![finish upload content](images/1/Step2.4.png)
+   ![finish upload content](images/Step2.4.png)
 
 ## Step 4: Enable website hosting
 
@@ -93,41 +83,41 @@ After we upload the content of our website into the s3 bucket, we need to enable
 
 1. click the property tab
 
-   ![go to property](images/1/Step3.1.png)
+   ![go to property](images/Step3.1.png)
 
 2. scroll down until you see `Static website hosting`
 
-   ![enable hosting](images/1/Step3.2.png)
+   ![enable hosting](images/Step3.2.png)
 
 3. click `enable`
 
-   ![enable](images/1/Step3.3.png)
+   ![enable](images/Step3.3.png)
 
 4. Specify the home page(index document) and error page(error document) of your website.
 
-   ![documents specification](images/1/Step3.4.png)
+   ![documents specification](images/Step3.4.png)
 
 5. Click `Save Changes` at the bottom. You will now see a link in the `Static website hosting` section.
 
-   ![website section](images/1/Step3.5.1.png)
+   ![website section](images/Step3.5.1.png)
 
    However, the website cannot be accessed.
 
-   ![no permission 403](images/1/Step3.5.2.png)
+   ![no permission 403](images/Step3.5.2.png)
 
    We need to specify some permission to allow everyone to view our website.
 
 6. To allow everyone to access our website. Navigate to the permission tab.
 
-   ![permission tab](images/1/Step3.6.png)
+   ![permission tab](images/Step3.6.png)
 
 7. scroll to `Block public access (bucket settings)` and click edit.
 
-   ![edit permission](images/1/Step3.7.png)
+   ![edit permission](images/Step3.7.png)
 
 8. uncheck `Block all public access` and click `Save changes`.
 
-   ![disable block](images/1/Step3.8.1.png)
+   ![disable block](images/Step3.8.1.png)
 
    A prompt will pop up asking you to type in confirm.
 
@@ -141,15 +131,15 @@ After we upload the content of our website into the s3 bucket, we need to enable
    <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br />
    <span style="color:#FF4C4D">Make sure there is no non-public content.</span>
 
-   ![confirm on public access](images/1/Step3.8.2.png)
+   ![confirm on public access](images/Step3.8.2.png)
 
 9. However our website is still not accessible as we haven't specified permit on anything.
 
-   ![no permission 403](images/1/Step3.5.2.png)
+   ![no permission 403](images/Step3.5.2.png)
 
    Navigate to `Bucket policy` and click `Edit`
 
-   ![edit bucket policy](images/1/Step3.9.png)
+   ![edit bucket policy](images/Step3.9.png)
 
 10. paste the following JSON into the `Policy` field
 
@@ -187,17 +177,17 @@ After we upload the content of our website into the s3 bucket, we need to enable
 
     - visit [https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html) for more examples and documentation of bucket policy.
 
-    ![edit bucket policy](images/1/Step3.10.1.png)
+    ![edit bucket policy](images/Step3.10.1.png)
 
     Click `Save changes` at the bottom
 
     <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br /><span style="color:#FF4C4D">Make sure there is no non-public content.</span><br /><span style="color:#FF4C4D">Make sure there is no non-public content.</span>
 
-    ![confirm](images/1/Step3.10.2.png)
+    ![confirm](images/Step3.10.2.png)
 
     Once the is complete. Go back to `Static website hosting` and click on the link. The website should now be up and running.
 
-    ![running website](images/1/Step3.10.3.png)
+    ![running website](images/Step3.10.3.png)
 
 ## Step 5: Configuring domain
 
@@ -207,15 +197,15 @@ Refer to [AWS documentation on settng up Hosted Zone](https://aws.amazon.com/get
 
 1. Look for Route 53 console
 
-   ![Router 53](images/1/Step4.1.png)
+   ![Router 53](images/Step4.1.png)
 
 2. Select Your domain
 
-   ![Hosted Zone](images/1/Step4.2.png)
+   ![Hosted Zone](images/Step4.2.png)
 
 3. Click `Create Record`
 
-   ![Records](images/1/Step4.3.png)
+   ![Records](images/Step4.3.png)
 
 4. Create a record for our domain
 
@@ -225,11 +215,11 @@ Refer to [AWS documentation on settng up Hosted Zone](https://aws.amazon.com/get
     4. Select the website endpoint for your bucket. If first and second field are correct it should appear automatically when you click on it.
     5. click `Create records`
 
-    (images/1/Step4.4.png)![Add Records]
+    (images/Step4.4.png)![Add Records]
 
 5. Test your website
 
-   ![Add Records](images/1/Step4.5.png)
+   ![Add Records](images/Step4.5.png)
 
 ## Congruation: Your website is now up.
 
@@ -241,35 +231,35 @@ CloudFront is a CDN service, it caches your service to edge locations so visitor
 
 1. Go to CloudFront console
 
-   ![Look for CloudFront](images/1/Step5.1.png)
+   ![Look for CloudFront](images/Step5.1.png)
 
 2. click the `distribution` tab and click `Create distribution`
 
-   ![Create Distribution](images/1/Step5.2.png)
+   ![Create Distribution](images/Step5.2.png)
 
 3. Fill in the Information
 
    1. in the Origin Section, click the origin box and select the one with you s3 bucket name. The rest will be filled in for you. You can change the name to whatever you want.
 
-      ![Distribution Information](images/1/Step5.3.1.png)
+      ![Distribution Information](images/Step5.3.1.png)
 
    2. in the [`Web Application Firewall (WAF)`](https://docs.aws.amazon.com/waf/latest/developerguide/cloudfront-features.html) section select `Do not enable security protections`
 
-      ![Distribution Information](images/1/Step5.3.2.png)
+      ![Distribution Information](images/Step5.3.2.png)
 
    3. Create the Distribution
 
-      ![Distribution Information](images/1/Step5.3.3.png)
+      ![Distribution Information](images/Step5.3.3.png)
 
 4. Test your CDN
 
    1. In the details of your newly created distribution, you should see a distribution link
 
-      ![Distribution Information](images/1/Step5.4.1.png)
+      ![Distribution Information](images/Step5.4.1.png)
 
    2. Copy it can open it with your broswer
 
-      ![Distribution Information](images/1/Step5.4.2.png)
+      ![Distribution Information](images/Step5.4.2.png)
 
 5. You now have a CDN linked to your website
 
@@ -279,15 +269,15 @@ In this step we will setup ACM to obtain a certificate for our domain.
 
 1. Go to ACM console, make sure you are in the us-east-1(US East (N. Virginia)) region. CloudFront only support certificate in the us-east-1 region.
 
-   ![ACM Console](images/1/Step6.1.png)
+   ![ACM Console](images/Step6.1.png)
 
 2. Click `Request certificate` and click `Next`
 
-   ![ACM Request Cert](images/1/Step6.2.png)
+   ![ACM Request Cert](images/Step6.2.png)
 
 3. In the `Domain Name` section, input your domain to the domain field
 
-   ![Enter domain](images/1/Step6.3.png)
+   ![Enter domain](images/Step6.3.png)
 
 4. Chose varification methoad
 
@@ -296,30 +286,30 @@ In this step we will setup ACM to obtain a certificate for our domain.
 
    Reommend using the DNS method. After that click `Request`.
 
-   ![Verification](images/1/Step6.4.png)
+   ![Verification](images/Step6.4.png)
 
 5. Click the certificate with your domain.
 
-   ![Select domain](images/1/Step6.5.png)
+   ![Select domain](images/Step6.5.png)
 
 6. Create the DNS record in your dns provider
 
    - because I am using Route 53, I can just click the `Create records in Route 53`
    - if you are not using Router 53, you will need to manually create the records or export to CSV and import it into your DNS host
 
-   ![Create record](images/1/Step6.6.png)
+   ![Create record](images/Step6.6.png)
 
 7. For me I still have to complete more steps. Skip if you have completed record creation
 
-   ![Create record button](images/1/Step6.7.png)
+   ![Create record button](images/Step6.7.png)
 
 8. It takes a while for AWS to verify your domain
 
-   ![wait for issue](images/1/Step6.8.1.png)
+   ![wait for issue](images/Step6.8.1.png)
 
    once complete the this should says `Issued` with a green tick, see below.
 
-   ![issued](images/1/Step6.8.2.png)
+   ![issued](images/Step6.8.2.png)
 
 ## Step 8: Setting up CNAME for distribution
 
@@ -329,18 +319,18 @@ We can now use the certificate we just obtained to enable https on our distribut
 
 2. In the `Setting` section, click `Edit`
 
-   ![edit setting](images/1/Step7.2.png)
+   ![edit setting](images/Step7.2.png)
 
 3. Select domain and certificate
 
    1. In the `Alternate domain name (CNAME) - optional` tab, click `Add item` and input your domain
    2. In the `Custom SSL certificate - optional` section, select the certificate we requested.
 
-   ![Configure Domain](images/1/Step7.3.png)
+   ![Configure Domain](images/Step7.3.png)
 
 4. Leave the other settings as default and click `Save changes`.
 
-   ![save changes](images/1/Step7.4.png)
+   ![save changes](images/Step7.4.png)
 
 5. Change DNS records.
 
@@ -355,7 +345,7 @@ We can now use the certificate we just obtained to enable https on our distribut
 
       - if you didn't follow the create record step above, create one
 
-      ![Edit Domain Record](images/1/Step7.5.3.png)
+      ![Edit Domain Record](images/Step7.5.3.png)
 
    4. Select the CloudFront distribution to route to
 
@@ -363,11 +353,11 @@ We can now use the certificate we just obtained to enable https on our distribut
       2. the second field, select the distribution you created
       3. click save
 
-      ![Set domain record details](images/1/Step7.5.4.png)
+      ![Set domain record details](images/Step7.5.4.png)
 
 6. Your site is now up and routed through CloudFont along with a certificate.
 
-   ![Finish domain](images/1/Step7.6.png)
+   ![Finish domain](images/Step7.6.png)
 
 ## Step 9: HTTP to HTTPS redirect
 
@@ -379,17 +369,17 @@ This setp is optional, we will setup error pages, and redirect http to https.
    2. Select the one with a path pattern of `Default (*)`
    3. click `Edit`
 
-   ![Edit client behavor](images/1/Step8.1.png)
+   ![Edit client behavor](images/Step8.1.png)
 
 2. In the `Viewer` section of `Settings`
 
    - Select `Redirect HTTP to HTTPS`
 
-   ![Enable Redirect to HTTPS](images/1/Step8.2.1.png)
+   ![Enable Redirect to HTTPS](images/Step8.2.1.png)
 
    - Save Changes
 
-   ![save changes](images/1/Step8.2.2.png)
+   ![save changes](images/Step8.2.2.png)
 
 3. Test your changes
 
