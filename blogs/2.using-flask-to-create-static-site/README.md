@@ -19,8 +19,36 @@ I am still working on migrating my [GitHub pages](https://pages.github.com/) pag
 Also, check out:
 
 - [Using S3 with CloudFront to host Static Websites for FREE](https://github.karlcch.com/articles/1.Using-S3-to-host-static-website)
-- [Project github link](https://github.com/ltekme/karlcch)
+- [Project github link](https://github.com/ltekme/karlcch/tree/e91ddd54899ae19c0bcfc01fab15f3bb11df52b4)
 - [karlcch.com](karlcch.com)
+
+## Table of Contents
+
+- [Using Flask to generate static website](#using-flask-to-generate-static-website)
+  - [Introductions](#introductions)
+  - [Table of Contents](#table-of-contents)
+  - [credits](#credits)
+  - [Reason to use templating](#reason-to-use-templating)
+    - [Ranting about WordPress, hosting, services](#ranting-about-wordpress-hosting-services)
+    - [Linkedin is a good platform](#linkedin-is-a-good-platform)
+    - [Flask](#flask)
+  - [Project Layout](#project-layout)
+  - [Encounters](#encounters)
+    - [Frozen-Flask page build](#frozen-flask-page-build)
+    - [sitemap](#sitemap)
+    - [robots](#robots)
+    - [Static content](#static-content)
+    - [Favicon](#favicon)
+    - [Full URL path on build](#full-url-path-on-build)
+    - [Build dir](#build-dir)
+    - [S3 error page](#s3-error-page)
+  - [File overview](#file-overview)
+    - [app/\_\_init\_\_.py](#app__init__py)
+    - [app/routes.py](#approutespy)
+    - [app/pages.py](#apppagespy)
+    - [build.py](#buildpy)
+    - [additional reads](#additional-reads)
+  - [Happy building](#happy-building)
 
 ## credits
 
@@ -39,7 +67,9 @@ In the future when I expand the site, things will only get more complicated. I h
 - Migrate all my posts to LinkedIn
 - Flask
 
-## Ranting about WordPress, hosting, services
+---
+
+### Ranting about WordPress, hosting, services
 
 I personally don't like WordPress. The biggest reason is that the control panel is directly accessible by URL to anyone. You can secure it, however, just is idea of it feels off. Trust me, it's not a good idea to expose your control panel to a publically accessible URL.
 
@@ -61,17 +91,21 @@ come on, I don't even have a database back then. it is fun to see this popping u
 
 Fun times.
 
-## Linkedin is a good platform
+---
+
+### Linkedin is a good platform
 
 LinkedIn is a very good place to share things like this it's just too simple for me.
 
-## Flask
+---
+
+### Flask
 
 At the time of writing, I am using CloudFront and an s3 bucket to host my site, all I need is a way to standardize my HTMLs.
 
 So flask it is. And for those who wanted to say [node.js](https://nodejs.org/en), I tried, it was way too complicated for my use case. I just finished an assignment project that requires Flask. I just want to get on with my life. Semester 3 is hell enough already.
 
-## project base
+## Project Layout
 
 ```sh
 .
@@ -101,16 +135,7 @@ checkout the [GitHub repo](https://github.com/ltekme/karlcch) for more details a
 
 ## Encounters
 
-- Frozen-Flask page build
-- sitemap.xml
-- robots.txt
-- favicon.ico
-- /static
-- Full URL path on build
-- built dir
-- S3 error page
-
-## Frozen-Flask page build
+### Frozen-Flask page build
 
 when I decided on using [`Frozen-Flask`](https://frozen-flask.readthedocs.io/en/latest/) I didn't realize it would copy all the contents of the static folder to the build destination. Thus causing some files to be duplicated such as:
 
@@ -118,7 +143,9 @@ when I decided on using [`Frozen-Flask`](https://frozen-flask.readthedocs.io/en/
 - robots.txt
 - sitemap.xml
 
-## sitemap
+---
+
+### sitemap
 
 After looking at some of the options out there I landed on flask-sitemapper as it was one of the simplest of them all. At first, I decided to use [flask-sitemap](https://flask-sitemap.readthedocs.io/en/latest/) however after reading the documentation, this is too complicated for my use case, after stumbling around when I almost decided to create my own I found [h-janes/flask-sitemapper](https://github.com/h-janes/flask-sitemapper) a simple yet elegant solution to my problem.
 
@@ -147,7 +174,9 @@ def sitemap():
 
 only one line is needed to include the route to the sitemap `@sitemapper.include(lastmod="2024-05-09")`.
 
-## robots
+---
+
+### robots
 
 This file is a bit complicated as I cannot just send a text string to the client for some reason.
 
@@ -229,7 +258,9 @@ def robots():
 
 That's a complete robots.txt Lighthouse is now happy.
 
-## Static content
+---
+
+### Static content
 
 Flask [`url_for`](https://flask.palletsprojects.com/en/2.3.x/api/#flask.url_for) has a built-in static content route which allows you to point to every file in the `static` folder.
 This creates a problem.
@@ -247,7 +278,9 @@ def static_content(path):
 
 Instead of using the built-in static route, using this special route allows all static content present in the built static site folder.
 
-## Favicon
+---
+
+### Favicon
 
 This file is a bit complicated as I would like. To show the favicon I can just put it in the static folder and be done with it.
 
@@ -264,7 +297,9 @@ create a new folder called `resources`. Move the file there with a route pointin
 
 Problem solved
 
-## Full URL path on build
+---
+
+### Full URL path on build
 
 When writing the Flask app, the path to static files does not contain the `domain name/host` in the URL path. This creates a problem. I need all [`url_for`](https://flask.palletsprojects.com/en/2.3.x/api/#flask.url_for) to have an external path which would need 2 things.
 
@@ -298,7 +333,9 @@ and addition args on every [`url_for`](https://flask.palletsprojects.com/en/2.3.
 
 When a `_scheme` arg is present [`url_for`](https://flask.palletsprojects.com/en/2.3.x/api/#flask.url_for) automatically looks for a `SERVER_NAME` so that value doesn't need to be set.
 
-## Build dir
+---
+
+### Build dir
 
 this should be simple
 
@@ -316,7 +353,9 @@ freezer.freeze()
 
 done. Try to get the build dir from env, when not present use the default `.build` dir next to `build.py`
 
-## S3 error page
+---
+
+### S3 error page
 
 to host on s3 I need Flask to also generate the error document
 

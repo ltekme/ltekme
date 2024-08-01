@@ -12,7 +12,7 @@ The best option for sites that only contain static content.
 
 There are many ways to host your next website. WordPress, Docker, EC2, and many more. However, if you are an enthusiast like me, chances are you only have HTML, CSS, and maybe some client-side JS for that bling.
 
-In that case, why waste all those resources just to serve some texts over the internet? That's where s3 comes in. Simple Storage Service. A storage service that is simple yet powerful. The best part is, it's free!!!d
+In that case, why waste all those resources just to serve some texts over the internet? That's where s3 comes in. Simple Storage Service. A storage service that is simple yet powerful. The best part is, it's free!!!
 
 This is a step by step walkthrough on hosting you website using S3. We will be configuring S3, Route 53, CloudFront, ACM. This solution should be free minus the Route 53.
 
@@ -20,6 +20,20 @@ If you don't have a site, I have a [s3_static_site.zip](contents/s3_static_site.
 
 ## Table of contents
 
+- [Using S3 with CloudFront to host Static Websites for FREE\*](#using-s3-with-cloudfront-to-host-static-websites-for-free)
+  - [Introductions](#introductions)
+  - [Table of contents](#table-of-contents)
+  - [Step 1: AWS Account](#step-1-aws-account)
+  - [Step 2: Create S3 bucket](#step-2-create-s3-bucket)
+  - [Step 3: Upload content](#step-3-upload-content)
+  - [Step 4: Enable website hosting](#step-4-enable-website-hosting)
+  - [Step 5: Configuring domain](#step-5-configuring-domain)
+  - [Congruation: Your website is now up.](#congruation-your-website-is-now-up)
+  - [Step 6: Create CloudFront distribution](#step-6-create-cloudfront-distribution)
+  - [Step 7: Obtaining a TLS certificate](#step-7-obtaining-a-tls-certificate)
+  - [Step 8: Setting up CNAME for distribution](#step-8-setting-up-cname-for-distribution)
+  - [Step 9: HTTP to HTTPS redirect](#step-9-http-to-https-redirect)
+  - [Step 10: Celebrate](#step-10-celebrate)
 
 ## Step 1: AWS Account
 
