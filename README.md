@@ -8,27 +8,27 @@ I am a student at IVE enrolled in a Cloud and Datacenter Administration course
 
 ## Blogs
 
-- [Using flask to creat my static website](/blogs/2.using-flask-to-create-static-site.md)
+- [Using flask to creat my static website](blogs/2.using-flask-to-create-static-site/README.md)
 
   This is a walkthrough on how I used flask to create my site `structurally`
 
-More at [/blog](/blogs)
+More at [/blog](/blogs/README.md)
 
 ## Fun MicroProjects
 
-Things that I made that is too small to deserve it's own repo
+My Fun Thingies
 
 - [Py-Text-Scrambler](/Fun/Py-Text-Scrambler)
 
   A small snippet of code I that I use to embed some message in a way that is not overious.
 
-More at [/Fun](/Fun)
+More at [/Fun](/Fun/README.md)
 
 ## Snippets and Templates
 
 Project Templates and Snippets
 
-- [Terraform](Terraform-Template)
+- [Terraform](Snippets-and-Templates/Terraform-Template)
 
   A terrafrom project base template on aws
 
