@@ -10,9 +10,11 @@ locals {
   lambda-handler      = lookup(var.lambda-config, "handler", "lambda_function.lambda_handler")
   lambda-runtime      = lookup(var.lambda-config, "runtime", "python3.12")
   lambda-architecture = lookup(var.lambda-config, "architecture", "arm64")
+  lambda-timeout      = lookup(var.lambda-config, "timeout", 300)
 
-  lambda-create_role        = lookup(var.lambda-config, "execution_role", null) != null ? false : true
-  lambda-execution-role-arn = local.lambda-create_role == false ? var.lambda-config.execution_role : aws_iam_role.this[0].arn
+  lambda-create_role        = lookup(var.lambda-config, "execution_role", null) == null ? true : false
+  lambda-execution-role-arn = local.lambda-create_role == true ? aws_iam_role.this[0].arn : var.lambda-config.execution_role
+
 
   cloudwatch-log-group-name = "/aws/lambda/${local.lambda-function-name}"
 }
@@ -53,6 +55,14 @@ resource "aws_iam_role" "this" {
       ]
     })
   }
+
+  dynamic "inline_policy" {
+    for_each = var.additional-permissions
+    content {
+      name   = inline_policy.value.name
+      policy = jsonencode(inline_policy.value.policy)
+    }
+  }
 }
 
 
@@ -73,6 +83,12 @@ resource "aws_lambda_function" "this" {
   architectures = [local.lambda-architecture]
 
   role = local.lambda-execution-role-arn
+
+  timeout = local.lambda-timeout
+
+  environment {
+    variables = var.additional-environment-variables
+  }
 }
 
 

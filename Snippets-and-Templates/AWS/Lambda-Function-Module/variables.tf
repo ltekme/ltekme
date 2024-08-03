@@ -41,12 +41,21 @@ variable "lambda-config" {
 
 variable "additional-permissions" {
   description = "List of additional permissions to be added to the lambda function"
-  type        = map(map(string))
-  default     = {}
+  type = list(object({
+    name   = string
+    policy = any
+  }))
+  default = []
 }
 
 variable "create-cloudwatch-log-group" {
   description = "Create CloudWatch Logs for the lambda function"
   type        = bool
   default     = true
+}
+
+variable "additional-environment-variables" {
+  description = "Additional environment variables to be added to the lambda function"
+  type        = map(string)
+  default     = {} 
 }
