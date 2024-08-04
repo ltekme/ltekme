@@ -13,3 +13,7 @@ A place where I put my blogs
 - [Using flask to creat my static website\*](2.using-flask-to-create-static-site)
 
     This is a walkthrough on how I used flask to create my site `structurally`
+
+- [Exploring Lambda/SQS/SNS/ReactJS](3.Exploring-Lambda-SQS-SNS-ReactJS)
+
+    Exploring Lambda functions/SQS/SNS/ReactJS by fuilding an [AI Screener For User Generated Content](https://github.com/ltekme/AI-Screener-For-User-Generated-Content)
