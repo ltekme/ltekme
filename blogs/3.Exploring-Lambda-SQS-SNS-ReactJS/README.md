@@ -8,7 +8,7 @@ From a monolith ec2 instence to s3 for static content and lambda function to han
 
 ### The problem
 
-Last month one of my friend from highschool draged me to chat with his friends to talk about an idea he had. The project is an online platform that allow it's users to post something, someone resonse and something something, not going into details, but one of the problem we encounted is platform moderation. We want to allow users to post content(mostly text) freely, and we also want to not monitor the platform 24/7.
+Last month one of my friend from highschool draged sme to chat with his friends to talk about an idea he had. The project is an online platform that allow it's users to post something, someone resonse and something something, not going into details, but one of the problem we encounted is platform moderation. We want to allow users to post content(mostly text) freely, and we also want to not monitor the platform 24/7.
 
 That's when I had an idea to use AI to screen to content before it is published. The idea is to have an LLM look at the content submitted and mark it as safe and not safe based on a set of rules, if a submission is flagged the site will send an email to moderators to manually verify the content.
 
