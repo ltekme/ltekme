@@ -4,6 +4,32 @@ This is a post about playing with sqs, sns, apigw, lambda, react. The starter pa
 
 [↩️ go back](../)
 
+## Table of contents
+
+- [Exploring Lambda, APIGW, SQS, SNS and ReactJS](#exploring-lambda-apigw-sqs-sns-and-reactjs)
+  - [Table of contents](#table-of-contents)
+  - [background](#background)
+    - [The problem](#the-problem)
+    - [What happened](#what-happened)
+  - [Design](#design)
+  - [S3 + ReactJS is great](#s3--reactjs-is-great)
+    - [What is ReactJS](#what-is-reactjs)
+    - [React offerings](#react-offerings)
+    - [S3 is perfect](#s3-is-perfect)
+  - [APIGW + Lambda Function = Perfect Backend API](#apigw--lambda-function--perfect-backend-api)
+    - [The client is powerful](#the-client-is-powerful)
+    - [JS is not secure](#js-is-not-secure)
+    - [Abstraction](#abstraction)
+    - [Serverless](#serverless)
+    - [Working With API Gateway + Lambda](#working-with-api-gateway--lambda)
+  - [Cloufront is not just a CDN](#cloufront-is-not-just-a-cdn)
+    - [Content Delivery Network](#content-delivery-network)
+    - [CloudFront as HTTP rewrite](#cloudfront-as-http-rewrite)
+    - [CloudFront as Path Router](#cloudfront-as-path-router)
+    - [Working with CloudFront](#working-with-cloudfront)
+      - [Using Cloudfront + S3 to host ReactJS website](#using-cloudfront--s3-to-host-reactjs-website)
+      - [Using Cloudfront as a Path Router](#using-cloudfront-as-a-path-router)
+
 ## background
 
 When I was studying for the AWS-SAA exam I came across [`decoupling`](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-integrating-microservices/decouple-messaging.html) a lot.
@@ -20,7 +46,7 @@ That's when I had an idea to use AI to screen the content before it is published
 
 The idea is great and the project lead thinks it's great as well. The only problem is that the 2 people leading the project didn't prepare anything and probably didn't know what they were doing. When we pointed out a list of concerns and problems that didn't cross their mind, the project was scrapped in the end.
 
-But the idea of a content screener is not dead and I now have an excuse to use sqs, sns, apigw, and lambda functions to solve a problem that doesn't exist. So here is what I have gone through and learned from building something like this.
+But the idea of a content screener is not dead and I now have an excuse to use sqs, sns, apigw, and lambda functions to solve a problem that doesn't exist.
 
 ## Design
 
@@ -31,6 +57,8 @@ Github repo: [ltekme/AI-Screener-For-User-Generated-Content](https://github.com/
 This is an illustration of how it is hosted on AWS. Because I wanted to make it work on both a normal account and AWS Acaedmy Learn Lab account, this diagram is different from the one hosted on AWS Acaedemy Learner Lab.
 
 Some of the things are not included when deploying on Learner Lab, namely Bedrock, and CloudFront. I can understand bedrock, but CloudFront as well??? I can spend another couple of days migrating the AI part to Google Vertex AI so it can still flag content, but I figured, no.
+
+This projects isn't some super complicated money making idea or something, just an execure to play with things and share what I learned and went through.
 
 ## S3 + ReactJS is great
 
@@ -54,19 +82,47 @@ With the above, reactjs only needs the clients to do the rendering, we only need
 
 To put it simply. S3 is a hard disk plugged into the internet, allowing users to store and access their data as long as there is an internet connection. One of its features is [static website hosting](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). I made a post on how you can use s3 and CloudFront to host your website globally for almost free* [here](../1.Using-S3-to-host-static-website/README.md).
 
+## APIGW + Lambda Function = Perfect Backend API
+
+One of aws best combination is [APIGW](https://aws.amazon.com/api-gateway/) with [Lambda function](https://aws.amazon.com/lambda/) integration. There is your programming API and there is HTTP API.
+
+I wrote a simplified version of what is API [here pages/What-Is-API/README.md](pages/What-Is-API/README.md).
+
+### The client is powerful
+
+In the above we covered ReactJs. A library to create the front end. Only one issue. How do we interact with data. If we are already rendering the page on the client, why not just do it all on the client. You can, but it's a terrable idea.
+
+To access AWS services, we need an authencation token to identify who you are and are you allowed to use the service you are trying to access. You can use [AWS Cognito](https://aws.amazon.com/cognito/) to authencate your client, but that comes with a whole set of other problems.
+
+### JS is not secure
+
+Anyone who have messed with the developer console would know. Once the content is in the hands of the client. There is no garentee what's being done to any of the content. The javascript contents of a page can easily be modified. Do you really want to allow something you don't know to do touching your data directly. No. There is only one answer. No
+
+### Abstraction
+
+With that said. One of the best way to make sure something you don't know wou't mess up your data is abstraction.
+
+By masking the code that interact with your data with a url, you can make sure what's being done to your backend is tracable and expected. Instead of having your raw data expose to the client, you can first transform it then send it to the client.
+
+When the client wants to send some data to the server. Instead of directly writing to the database, be hand the data to the API to make sure it is valid and not something that will distroy your data. You espelishly don't want to give the client to delete data directly. It shoud go through a request to the API.
+
+### Serverless
+
+Computer are wastful. You provision a set amount of compute, it is assigned to you, but are you using it. Chances are small projects like this, are not going to get any real users, even so, 10 or 20 querying an server a couple times a day does not worth the cost of running the compute instence. Worse yet the API bare gets any requests, you are paying to something you don't use.
+
+That's when serverless comes in. You define what you need to run and it only runs when it is triggered. Setup your code and specify your runtime, and the underlying os takes care of the processing for you, instead of reserving a set amount of compute, you share a pool of resources amonth thoutands, even millioins of other aws customers. You are only billed for what you use, however much your code takes up ram and however long it takes to run is what you are billed.
+
+### Working With API Gateway + Lambda
+
+Please read [pages/Working-With-APIGW-and-Lambda/README.md](pages/Working-With-APIGW-and-Lambda/README.md). In it details how API Gateway can be used with Lambda to create a public API.
+
 ## Cloufront is not just a CDN
 
 Even though [CloudFront](https://aws.amazon.com/cloudfront/) on paper sounds like CDN, like Amazon, it is way more then just a CDN.
 
 ### Content Delivery Network
 
-CDN is basically copies of the same thing hosted by lots of smaller servers placed around the world. So you don't need to query a server in the US from HK, instead, you are accessing a copy of the same content cache nearest you. Read more: [https://aws.amazon.com/what-is/cdn/](https://aws.amazon.com/what-is/cdn/), [https://en.wikipedia.org/wiki/Content_delivery_network](https://en.wikipedia.org/wiki/Content_delivery_network)
-
-### CloudFront as router
-
-Just like some of other AWS global services, Cloudfrot can be used as a web router. In this case routing requests from one place to another.
-
-I have been searching for this for far too long. One of the things I want to do is `/api` on a website without going to a different domain. It is just recently I found out how it's done on CloudFront. Before, I would have another domain prefix(api.example.com) to serve [API Gateway](https://aws.amazon.com/api-gateway/).
+CDN is basically copies of the same thing hosted by lots of smaller servers placed around the world as a cache. So you don't need to query a server in the US from HK, instead, you are accessing a copy of the same content cache nearest you. Read more: [https://aws.amazon.com/what-is/cdn/](https://aws.amazon.com/what-is/cdn/), [https://en.wikipedia.org/wiki/Content_delivery_network](https://en.wikipedia.org/wiki/Content_delivery_network)
 
 ### CloudFront as HTTP rewrite
 
@@ -76,6 +132,22 @@ In the above, using s3 to host reactjs has its perks, most noticeably 404/403 re
 
 We can get around that by using CloudFront's custom error response. We just need to rewrite 4xx error codes to 200 and serve the index.html, and every path will return 200. Note reactjs can work even with 404 and 403 responses. The issue is different browsers react to these status codes differently, some may not show the error document at all. By rewriting to 200, we can guaranty the browser will take the non-existent path as well.
 
-### How it's implemented
+### CloudFront as Path Router
 
-Because it is too long to put everything in one README, the implementation is on a different page [here: pages/Using-CloudFront-and-S3-to-host-ReactJS/RADME.md](pages/Using-CloudFront-and-S3-to-host-ReactJS/RADME.md)
+Another feature of CloudFront is path routing. With how CloudFront featuere is offered, we can use CloudFront to route traffic based on the url path.
+
+A CloudFront [origin](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_Origin.html) defines the location and properity of where a piece of content orginate.
+
+A CloudFront [cache behavior](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior) defines the behavor of how cloudfront traeats an origin. Incluiding path pattern, cached methods, allowed methods.
+
+Each CloudFront Distribution must contains a default cache behavior to an origin, more then one cache behavior can be defined in a Distribution. From those 2 features we can setup cloud front to route our traffic based on the path to different origin. Simular to [AWS ELB](https://aws.amazon.com/elasticloadbalancing/) or Reverse Proxy Server, but without the multi target feature. 
+
+### Working with CloudFront
+
+#### Using Cloudfront + S3 to host ReactJS website
+
+Please read [pages/Using-CloudFront-and-S3-to-host-ReactJS/RADME.md](pages/Using-CloudFront-and-S3-to-host-ReactJS/RADME.md). In it details how S3 and CloudFront can be used together to host website built using React JS
+
+#### Using Cloudfront as a Path Router
+
+Please read [pages/CloudFront-as-a-Router/RADME.md](pages/CloudFront-as-a-Router/RADME.md). In it details how CloudFront can be used as a path router routing `/api` to API Gateway and `*`(everything else) to S3

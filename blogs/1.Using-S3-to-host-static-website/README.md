@@ -28,7 +28,7 @@ If you don't have a site, I have a [s3_static_site.zip](contents/s3_static_site.
   - [Step 3: Upload content](#step-3-upload-content)
   - [Step 4: Enable website hosting](#step-4-enable-website-hosting)
   - [Step 5: Configuring domain](#step-5-configuring-domain)
-  - [Congruation: Your website is now up.](#congruation-your-website-is-now-up)
+  - [Congruation: Your website is now up](#congruation-your-website-is-now-up)
   - [Step 6: Create CloudFront distribution](#step-6-create-cloudfront-distribution)
   - [Step 7: Obtaining a TLS certificate](#step-7-obtaining-a-tls-certificate)
   - [Step 8: Setting up CNAME for distribution](#step-8-setting-up-cname-for-distribution)
@@ -43,10 +43,7 @@ Register an account, chances are if you are just a regular user, you won't have 
 
 Once complete feel comfortable to continue. Feel free to follow along.
 
-<span style="color:#FF4C4D">Disclaimer!! This is for educational and demonstrational purposes only. I am not responsable for any loss. Please know what you are doing, continue at your own risk.</span><br />
-<span style="color:#FF4C4D">DO NOT USE THE ROOT ACCOUNT!!!</span><br />
-<span style="color:#FF4C4D">DO NOT USE THE ROOT ACCOUNT!!!</span><br />
-<span style="color:#FF4C4D">DO NOT USE THE ROOT ACCOUNT!!!</span>
+<span style="color:#FF4C4D">Disclaimer!! This is for educational and demonstrational purposes only. I am not responsable for any loss. Please know what you are doing, continue at your own risk.<br />DO NOT USE THE ROOT ACCOUNT!!!<br />DO NOT USE THE ROOT ACCOUNT!!!<br />DO NOT USE THE ROOT ACCOUNT!!!</span>
 
 ## Step 2: Create S3 bucket
 
@@ -135,15 +132,11 @@ After we upload the content of our website into the s3 bucket, we need to enable
 
    A prompt will pop up asking you to type in confirm.
 
-   <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br />
-   <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br />
-   <span style="color:#FF4C4D">Make sure there is no non-public content.</span>
+   <span style="color:#FF4C4D">Make sure there is no non-public content.<br /> Make sure there is no non-public content.<br /> Make sure there is no non-public content.</span>
 
    Type in confirm and click confirm.
 
-   <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br />
-   <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br />
-   <span style="color:#FF4C4D">Make sure there is no non-public content.</span>
+   <span style="color:#FF4C4D">Make sure there is no non-public content.<br />Make sure there is no non-public content.<br />Make sure there is no non-public content.</span>
 
    ![confirm on public access](images/Step3.8.2.png)
 
@@ -187,7 +180,7 @@ After we upload the content of our website into the s3 bucket, we need to enable
 
       - the `/*` at the end means everything. which is all objects in the bucket.
 
-      - <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br /><span style="color:#FF4C4D">Make sure there is no non-public content.</span><br /><span style="color:#FF4C4D">Make sure there is no non-public content.</span>
+      - <span style="color:#FF4C4D">Make sure there is no non-public content.<br />Make sure there is no non-public content.<br />Make sure there is no non-public content.</span>
 
     - visit [https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html) for more examples and documentation of bucket policy.
 
@@ -195,7 +188,7 @@ After we upload the content of our website into the s3 bucket, we need to enable
 
     Click `Save changes` at the bottom
 
-    <span style="color:#FF4C4D">Make sure there is no non-public content.</span><br /><span style="color:#FF4C4D">Make sure there is no non-public content.</span><br /><span style="color:#FF4C4D">Make sure there is no non-public content.</span>
+    <span style="color:#FF4C4D">Make sure there is no non-public content.<br />Make sure there is no non-public content<br />Make sure there is no non-public content.</span>
 
     ![confirm](images/Step3.10.2.png)
 
@@ -235,7 +228,7 @@ Refer to [AWS documentation on settng up Hosted Zone](https://aws.amazon.com/get
 
    ![Add Records](images/Step4.5.png)
 
-## Congruation: Your website is now up.
+## Congruation: Your website is now up
 
 You can stop here, you now have a website hosted on aws for free\*.
 
