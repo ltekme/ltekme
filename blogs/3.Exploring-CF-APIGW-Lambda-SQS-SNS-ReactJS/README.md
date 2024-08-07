@@ -1,12 +1,12 @@
-# Exploring Lambda, APIGW, SQS, SNS and ReactJS
+# Exploring CloudFront, Lambda, APIGW, SQS, SNS and ReactJS
 
-This is a post about playing with sqs, sns, apigw, lambda, react. The starter pack for any small project that involve cloud.
+This is a post about playing with sqs, sns, apigw, lambda, cloudfront, react. The starter pack for any small project that involve cloud.
 
 [↩️ go back](../)
 
 ## Table of contents
 
-- [Exploring Lambda, APIGW, SQS, SNS and ReactJS](#exploring-lambda-apigw-sqs-sns-and-reactjs)
+- [Exploring CloudFront, Lambda, APIGW, SQS, SNS and ReactJS](#exploring-cloudfront-lambda-apigw-sqs-sns-and-reactjs)
   - [Table of contents](#table-of-contents)
   - [background](#background)
     - [The problem](#the-problem)
@@ -140,7 +140,7 @@ A CloudFront [origin](https://docs.aws.amazon.com/cloudfront/latest/APIReference
 
 A CloudFront [cache behavior](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior) defines the behavor of how cloudfront traeats an origin. Incluiding path pattern, cached methods, allowed methods.
 
-Each CloudFront Distribution must contains a default cache behavior to an origin, more then one cache behavior can be defined in a Distribution. From those 2 features we can setup cloud front to route our traffic based on the path to different origin. Simular to [AWS ELB](https://aws.amazon.com/elasticloadbalancing/) or Reverse Proxy Server, but without the multi target feature. 
+Each CloudFront Distribution must contains a default cache behavior to an origin, more then one cache behavior can be defined in a Distribution. From those 2 features we can setup cloud front to route our traffic based on the path to different origin. Simular to [AWS ELB](https://aws.amazon.com/elasticloadbalancing/) or Reverse Proxy Server, but without the multi target feature.
 
 ### Working with CloudFront
 
@@ -150,4 +150,4 @@ Please read [pages/Using-CloudFront-and-S3-to-host-ReactJS/RADME.md](pages/Using
 
 #### Using Cloudfront as a Path Router
 
-Please read [pages/CloudFront-as-a-Router/RADME.md](pages/CloudFront-as-a-Router/RADME.md). In it details how CloudFront can be used as a path router routing `/api` to API Gateway and `*`(everything else) to S3
+Please read [pages/Using-CloudFront-as-a-Path-Router/RADME.md](pages/Using-CloudFront-as-a-Path-Router/RADME.md). In it details how CloudFront can be used as a path router, routing different path to differnt origin

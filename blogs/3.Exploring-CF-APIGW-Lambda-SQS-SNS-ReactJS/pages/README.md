@@ -20,4 +20,4 @@ Please read [Using-CloudFront-and-S3-to-host-ReactJS/RADME.md](Using-CloudFront-
 
 ## Using Cloudfront as a Path Router
 
-Please read [CloudFront-as-a-Router/RADME.md](CloudFront-as-a-Router/RADME.md). In it details how CloudFront can be used as a path router routing `/api` to API Gateway and `*`(everything else) to S3
+Please read [CloudFront-as-a-Router/RADME.md](CloudFront-as-a-Router/RADME.md). In it details how CloudFront can be used as a path router, routing different path to differnt origin
