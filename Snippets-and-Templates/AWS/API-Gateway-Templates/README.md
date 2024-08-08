@@ -33,7 +33,7 @@ API Gateway - API
 
 ########################################################*/
 resource "aws_apigatewayv2_api" "main" {
-  name          = "${ var.project-name}-API"
+  name          = "${var.project-name}-API"
   protocol_type = "HTTP"
 }
 ```

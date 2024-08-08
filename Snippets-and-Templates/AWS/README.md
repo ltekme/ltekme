@@ -9,14 +9,16 @@ A Collection of snippets and templates for aws
 - [AWS Snippets and Templates](#aws-snippets-and-templates)
   - [Table Of Contents](#table-of-contents)
   - [Terraform Contents](#terraform-contents)
-    - [Terraform Lambda Function Module](#terraform-lambda-function-module)
+    - [Lambda Function Module](#lambda-function-module)
     - [AWS API Gateway Template](#aws-api-gateway-template)
-  - [Additional Useful Resources](#additional-useful-resources)
+    - [S3 Public Website Hosting](#s3-public-website-hosting)
+  - [Useful Resources](#useful-resources)
+    - [Dev Thingies](#dev-thingies)
     - [Lambda Hello World Python Template](#lambda-hello-world-python-template)
 
 ## Terraform Contents
 
-### [Terraform Lambda Function Module](Lambda-Function-Module)
+### [Lambda Function Module](Lambda-Function-Module)
 
 Custom Lambda Function Module that support the use of aws acaedmy lab.
 
@@ -24,7 +26,15 @@ Custom Lambda Function Module that support the use of aws acaedmy lab.
 
 Snippets of AWS API Gateway Terraform Code Blocks
 
-## Additional Useful Resources
+### [S3 Public Website Hosting](S3-Public-Website)
+
+Snippets of hosting static website on aws
+
+## Useful Resources
+
+### [Dev Thingies](Devs)
+
+Template and snippets for devs
 
 ### [Lambda Hello World Python Template](Lambda-HTTP.py)
 
