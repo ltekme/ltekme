@@ -36,4 +36,4 @@ Project Templates and Snippets
 
   A Collection of snippets and templates for aws
 
-More at [/Snippets-and-Templates](Snippets-and-Templates)
+More at [/Snippets-and-Templates](/Snippets-and-Templates/README.md)
