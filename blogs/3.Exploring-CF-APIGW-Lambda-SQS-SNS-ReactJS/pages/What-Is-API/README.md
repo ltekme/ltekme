@@ -2,25 +2,25 @@
 
 [↩️ go back](../../README.md)
 
+When it comes to API, there is your api in your code and there is your API that runs over the netork. Not going into details, [here](https://aws.amazon.com/what-is/api/) is an article covering API from aws. Over here we are goint to talk about API over network. These includes HTTP, REST, WebSocket.
+
 ## Table of contents
 
 - [What is API](#what-is-api)
   - [Table of contents](#table-of-contents)
   - [API in real life](#api-in-real-life)
-    - [Example](#example)
+    - [API in real life Example](#api-in-real-life-example)
   - [Tipical API setup](#tipical-api-setup)
-    - [Example](#example-1)
+    - [Tipical API Example](#tipical-api-example)
   - [Common API setup on AWS](#common-api-setup-on-aws)
-    - [Example](#example-2)
+    - [Common API setup Example](#common-api-setup-example)
   - [Reverse Proxy](#reverse-proxy)
-
-When it comes to API, there is your api in your code and there is your API that runs over the netork. Not going into details, [here](https://aws.amazon.com/what-is/api/) is an article covering API from aws. Over here we are goint to talk about API over network. These includes HTTP, REST, WebSocket.
 
 ## API in real life
 
 You can think of the API as the interface between you and the kitchin in a restaurant. In the kitchen there is a screen that tells the chefs what you ordered and you have you phone clicking the button telling the resaurant what you want to order. The things between you and the kitchen can be understand as an API. You give instruction to thge kitchen the kitchen process your request and comes out with the resault, the food you ordered.
 
-### Example
+### API in real life Example
 
 ![API In Real Life Example](images/api-illistration-IRL.drawio.png)
 
@@ -42,7 +42,7 @@ In this case, the resaurant the the API. The customer is the web page you see on
 
 In most cases API setup is really simple. When an application is monolithic, there may not be a "Restaurant" in the chain.
 
-### Example
+### Tipical API Example
 
 ![Typical API Setup Example](images/api-illistration-tipical.drawio.png)
 
@@ -62,7 +62,7 @@ In this case, the server can in interperated as the API as well.
 
 Because of how elastic and dynamic AWS can be. API on aws can a bit more complicated than monolithic server archecture when going for [cloud native](https://aws.amazon.com/what-is/cloud-native/). But the concept is still the same, user make a request to an API, the API resonse back with the resault.
 
-### Example
+### Common API setup Example
 
 ![Common API Setup on aws](images/api-illistration-aws.drawio.png)
 

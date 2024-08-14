@@ -22,7 +22,7 @@ This post is about playing with sqs, sns, apigw, lambda, cloudfront, and reactjs
     - [Abstraction](#abstraction)
     - [Serverless](#serverless)
     - [Working With API Gateway + Lambda](#working-with-api-gateway--lambda)
-  - [Cloufront is not just a CDN](#cloufront-is-not-just-a-cdn)
+  - [Cloudfront is not just a CDN](#cloudfront-is-not-just-a-cdn)
     - [Content Delivery Network](#content-delivery-network)
     - [CloudFront as HTTP rewrite](#cloudfront-as-http-rewrite)
     - [CloudFront as Path Router](#cloudfront-as-path-router)
@@ -86,7 +86,7 @@ To put it simply. S3 is a hard disk plugged into the internet, allowing users to
 
 One of aws best combination is [APIGW](https://aws.amazon.com/api-gateway/) with [Lambda function](https://aws.amazon.com/lambda/) integration. There is your programming API and there is HTTP API.
 
-I wrote a simplified version of what is API [here pages/What-Is-API/README.md](pages/What-Is-API/README.md).
+I wrote a simplified version of what is API [here: pages/What-Is-API/README.md](pages/What-Is-API/README.md).
 
 ### The client is powerful
 
@@ -116,7 +116,7 @@ That's when serverless comes in. You define what you need to run and it only run
 
 Please read [pages/Working-With-APIGW-and-Lambda/README.md](pages/Working-With-APIGW-and-Lambda/README.md). It details how API Gateway can be used with Lambda to create a public API.
 
-## Cloufront is not just a CDN
+## Cloudfront is not just a CDN
 
 Even though [CloudFront](https://aws.amazon.com/cloudfront/) on paper sounds like CDN, like Amazon, it is way more than just a CDN.
 

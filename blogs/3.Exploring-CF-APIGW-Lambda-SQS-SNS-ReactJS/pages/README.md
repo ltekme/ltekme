@@ -2,7 +2,7 @@
 
 Extend [`Exploring Lambda, APIGW, SQS, SNS and ReactJS`](../)
 
-[↩️ go back](../)
+[↩️ go back](../README.md)
 
 ## What is API
 
