@@ -1,22 +1,22 @@
 # Using CloudFront and S3 to host ReactJS
 
-This page is about how you can use [CloudFront](https://aws.amazon.com/cloudfront/) and [S3](https://aws.amazon.com/s3/) to host your [React.JS](https://react.dev/) website. Since provision everying on the console and it doesn't work every time for me and the entire project is provisioned with terrafrom. Terrafrom is what's in this page.
+This page is about how you can use [CloudFront](https://aws.amazon.com/cloudfront/) and [S3](https://aws.amazon.com/s3/) to host your [React.JS](https://react.dev/) website. Since provisioning everything on the console it doesn't work every time for me and the entire project is provisioned with Terraform. Terrafrom is what's on this page.
 
 [↩️ go back](../../README.md)
 
-## Table of Contense
+## Table of Contents
 
 - [Using CloudFront and S3 to host ReactJS](#using-cloudfront-and-s3-to-host-reactjs)
-  - [Table of Contense](#table-of-contense)
+  - [Table of Contents](#table-of-contents)
   - [React JS Setup and Build](#react-js-setup-and-build)
   - [Setup Terraform Project](#setup-terraform-project)
-    - [Terrafrom requirments](#terrafrom-requirments)
+    - [Terraform requirements](#terraform-requirements)
     - [Terraform AWS provider config](#terraform-aws-provider-config)
     - [Enviroment Variables](#enviroment-variables)
   - [Setup Bucket and Website content](#setup-bucket-and-website-content)
     - [Random String for bucket suffix](#random-string-for-bucket-suffix)
     - [Create bucket](#create-bucket)
-    - [Null Resource to privision bucket contents](#null-resource-to-privision-bucket-contents)
+    - [Null Resource to provision bucket contents](#null-resource-to-provision-bucket-contents)
       - [Null Resources for Node ReactJS Build (optional)](#null-resources-for-node-reactjs-build-optional)
       - [Null Resources for AWS S3 Sync (optional)](#null-resources-for-aws-s3-sync-optional)
   - [Host with S3 Static website hosting](#host-with-s3-static-website-hosting)
@@ -32,7 +32,6 @@ This page is about how you can use [CloudFront](https://aws.amazon.com/cloudfron
       - [Setup Cache Behavior for s3 origin](#setup-cache-behavior-for-s3-origin)
       - [Setup Custom Error Response](#setup-custom-error-response)
     - [Side-Effects of Custom Error Response](#side-effects-of-custom-error-response)
-      - [Every 404 or 403 respond is now 200](#every-404-or-403-respond-is-now-200)
   - [Getting Around 404 Path Not Exists Error](#getting-around-404-path-not-exists-error)
   - [Each Method Have It's Own Perks](#each-method-have-its-own-perks)
 
@@ -40,19 +39,19 @@ This page is about how you can use [CloudFront](https://aws.amazon.com/cloudfron
 
 Setup nodejs. Here is a guide on how to do so. [https://nodejs.org/en/download/package-manager](https://nodejs.org/en/download/package-manager)
 
-After setting up node js. We need to create a new reactjs app.
+After setting up node js, create a new reactjs app.
 
 1. create a new empty folder and Open a terminal on that folder.
 2. run the command `npx create-react-app ./react-website`. This will create a new react app in a new directory `./react-website`
 3. run the command `npm run build`
 
-After that, a folder called `build` will be created on the project folder. This is the folder that contains the static content required to host your react app.
+After that, a folder called `build` will be created in the project folder. This folder contains the static content required to host the ReactJS app.
 
 Full Guide: [https://create-react-app.dev/docs/getting-started](https://create-react-app.dev/docs/getting-started)
 
 ## Setup Terraform Project
 
-### Terrafrom requirments
+### Terraform requirements
 
 ``` hcl
 /*########################################################
@@ -75,7 +74,7 @@ terraform {
 }
 ```
 
-Defines Terrafrom and AWS Terraform provider versions
+Defines Terraform and AWS Terraform provider versions
 
 ---
 
@@ -129,7 +128,7 @@ variable "aws-region" {
 
 ### Random String for bucket suffix
 
-Setup random string as bucket suffix to prevent duplicate bucket name. Please skip to [AWS Bucket Naming Rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html)
+Random string as bucket suffix to prevent duplicate bucket names. Please skip to [AWS Bucket Naming Rule](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html)
 
 ```hcl
 /*########################################################
@@ -168,7 +167,7 @@ resource "aws_s3_bucket" "website" {
 }
 ```
 
-Replace `_` and `space` with `-` and append bucket suffix. When destroy, distroy the bucket.
+Replace `_` and `space` with `-` and append bucket suffix. When destroy, destroy the bucket.
 
 Reference:
 
@@ -176,7 +175,7 @@ Reference:
 
 ---
 
-### Null Resource to privision bucket contents
+### Null Resource to provision bucket contents
 
 This assumes:
 
@@ -184,7 +183,7 @@ This assumes:
 - The react js project folder is `react-website`.
 - The build folder is `react-website/build`.
 - [`AWS CLI`](https://aws.amazon.com/cli/) is setup.
-- AWS Credentials are accessable by both `Terraform` and `AWS CLI`
+- AWS Credentials are accessible by both `Terraform` and `AWS CLI`
 
 Assumed Directory Tree:
 
@@ -256,7 +255,7 @@ References:
 
 ## Host with S3 Static website hosting
 
-This section is onlying for hosting with S3 website hosting. For hosting with CloudFront Distribution, [# Host with CloudFront Distribution](#host-with-cloudfront-distribution)
+This section is only for hosting with S3 website hosting. For hosting with CloudFront Distribution, [# Host with CloudFront Distribution](#host-with-cloudfront-distribution)
 
 ### Disable Public Access Block
 
@@ -321,7 +320,7 @@ Bucket - Website - Config Website
 
 ########################################################*/
 resource "aws_s3_bucket_website_configuration" "website" {
-  // Websit hosting config for not using cloudfront
+  // Website hosting config for not using cloudfront
   bucket = aws_s3_bucket.web-website.id
 
   index_document {
@@ -342,7 +341,7 @@ References:
 
 ### Side-Effect of S3 public Website hosting
 
-Even though the page exists in the react js path router. It doesn't exists in the systems of AWS.
+Even though the page exists in the react js path router. It doesn't exist in the systems of AWS.
 
 ![404 but ok page](images/404-showpage.png)
 
@@ -354,7 +353,7 @@ This section is for hosting with CloudFront Distribution. For hosting with s3 st
 
 To learn about what OAC is check out [https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-origin-access-control-oac/](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-origin-access-control-oac/).
 
-To put it simply, OAC allows the bucket to be private and only accessed by CloudFront Distribution. Denying access from public, making the contents inside the bucket only accessable though CloudFront instead of directly access from public.
+To put it simply, OAC allows the bucket to be private and only accessed from CloudFront Distribution. Denying access from public, making the contents inside the bucket only accessible through CloudFront instead of directly accessible from public.
 
 ```hcl
 /*########################################################
@@ -448,7 +447,7 @@ resource "aws_cloudfront_distribution" "website" {
 | `allowed_methods`        | methods to allow to origin                       |
 | `cached_methods`         | methods that use edge location cache             |
 | `viewer_protocol_policy` | http or https from the client to the origin      |
-| cache_policy_id          | policy id for how cloudfront chache the origin   |
+| cache_policy_id          | policy id for how cloudfront cache the origin    |
 | origin_request_policy_id | policy id for how cloudfront handle client attrs |
 | target_origin_id         | the origin to apply to                           |
 
@@ -471,11 +470,11 @@ resource "aws_cloudfront_distribution" "website" {
 }
 ```
 
-- When see 403 error
+- When 403 error
   - reply with 200
   - respond with `/index.html` content
 
-- When see 404 error
+- When 404 error
   - reply with 200
   - respond with `/index.html` content
 
@@ -487,13 +486,13 @@ References:
 
 ### Side-Effects of Custom Error Response
 
-#### Every 404 or 403 respond is now 200
+Every 404 or 403 respond is now 200
 
 By creating custom error response to rewrite 404 and 403 to 200, this would happen
 
 ![404 page but 200](images/problem-with-cf.png)
 
-Even though in the react js router this path doesn't exists, and it doesn't exsits in the bucket. CloudFront rewrited it to 200
+Even though in the react js router this path doesn't exist, and it doesn't exist in the bucket. CloudFront rewrote it to 200
 
 ## Getting Around 404 Path Not Exists Error
 
@@ -505,10 +504,10 @@ Inside the `flagged` folder in the above image contains the same content as in t
 
 ![no-more-404-on-path](images/path-good.png)
 
-This method works, but it complete falls apart. Once dynamic path is introduced.
+This method works, but it completely falls apart. Once dynamic path is introduced.
 
 ## Each Method Have It's Own Perks
 
-Each method have it's own perks. The best way is to setup a folder for each path in the bucket.
+Each method has its perks. The best way is to set up a folder for each path in the bucket.
 
 [↩️ back to article](../../README.md)
