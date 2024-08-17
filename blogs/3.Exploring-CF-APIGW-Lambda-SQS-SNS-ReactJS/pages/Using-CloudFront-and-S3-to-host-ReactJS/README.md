@@ -34,6 +34,7 @@ This page is about how you can use [CloudFront](https://aws.amazon.com/cloudfron
     - [Side-Effects of Custom Error Response](#side-effects-of-custom-error-response)
   - [Getting Around 404 Path Not Exists Error](#getting-around-404-path-not-exists-error)
   - [Each Method Have It's Own Perks](#each-method-have-its-own-perks)
+  - [One Terraform Package](#one-terraform-package)
 
 ## React JS Setup and Build
 
@@ -509,5 +510,9 @@ This method works, but it completely falls apart. Once dynamic path is introduce
 ## Each Method Have It's Own Perks
 
 Each method has its perks. The best way is to set up a folder for each path in the bucket.
+
+## One Terraform Package
+
+A while ago I made a terraform module what sets everything up, but without the site cloning stuff. [/Snippets-and-Templates/AWS/S3-Public-Website](/Snippets-and-Templates/AWS/S3-Public-Website)
 
 [↩️ back to article](../../README.md)
