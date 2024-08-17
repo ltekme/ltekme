@@ -4,7 +4,7 @@ Template/Snippets for easier deving and playing around
 
 ## Devcontainer
 
-refer to [Devcontainer/README.md](Devcontainer/README.md)
+refer to [Devcontainer/README.md](Devcontainer.md)
 
 ## Terminal alias
 

@@ -11,7 +11,7 @@ terraform {
       version = ">= 5.57.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = ">= 3.6.2"
     }
   }
@@ -33,9 +33,9 @@ S3 bucket for website content
 
 ########################################################*/
 locals {
-    s3 = {
-        bucket-name = "${var.site-domain == null ? lower(replace(var.project-name, " ", "-")) : lower(replace(var.site-domain, ".", "-"))}-${random_string.bucket-webiste_content-suffix.result}"
-    }
+  s3 = {
+    bucket-name = "${var.site-domain == null ? lower(replace(var.project-name, " ", "-")) : lower(replace(var.site-domain, ".", "-"))}-${random_string.bucket-webiste_content-suffix.result}"
+  }
 }
 
 resource "aws_s3_bucket" "webiste_content" {
@@ -55,32 +55,37 @@ resource "random_string" "bucket-webiste_content-suffix" {
 
 
 /*########################################################
-S3 bucket settings OAI
+S3 bucket settings OAC
 
 ########################################################*/
-resource "aws_s3_bucket_policy" "webiste_content-oai" {
-  count = var.setup-CloudFront || var.setup-CloudFront-OAI ? 1 : 0
-  // Bucket Policy for CloudFront OAI
+resource "aws_s3_bucket_policy" "webiste_content-oac" {
+  count = var.setup-CloudFront || var.setup-CloudFront-OAC ? 1 : 0
+  // Bucket Policy for CloudFront OAC
   bucket = aws_s3_bucket.webiste_content.id
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
-      Principal = {AWS = ["${aws_cloudfront_origin_access_identity.webiste_content-bucket-webiste_content[0].iam_arn}"]}
-      Action   = "s3:GetObject",
-      Resource = "${aws_s3_bucket.webiste_content.arn}/*",
+      Effect    = "Allow",
+      Principal = { Service = "cloudfront.amazonaws.com" }
+      Action    = "s3:GetObject",
+      Resource  = "${aws_s3_bucket.webiste_content.arn}/*",
+      Condition = {
+        StringEquals = {
+          "AWS:SourceArn" = aws_cloudfront_distribution.webiste_content[0].arn
+        }
+      }
     }],
   })
 }
 
 
 /*########################################################
-S3 bucket settings for no OAI
+S3 bucket settings for no OAC
 
 ########################################################*/
 resource "aws_s3_bucket_public_access_block" "webiste_content" {
   // Diable bucket block public access
-  count                   = !var.setup-CloudFront || !var.setup-CloudFront-OAI ? 1 : 0
+  count                   = !var.setup-CloudFront || !var.setup-CloudFront-OAC ? 1 : 0
   bucket                  = aws_s3_bucket.webiste_content.id
   block_public_acls       = false
   block_public_policy     = false
@@ -90,7 +95,7 @@ resource "aws_s3_bucket_public_access_block" "webiste_content" {
 
 resource "aws_s3_bucket_policy" "webiste_content" {
   // Bucket polipcy for no Cloudfront
-  count  = !var.setup-CloudFront || !var.setup-CloudFront-OAI ? 1 : 0
+  count  = !var.setup-CloudFront || !var.setup-CloudFront-OAC ? 1 : 0
   bucket = aws_s3_bucket.webiste_content.id
   policy = jsonencode({
     Version = "2012-10-17",
@@ -105,9 +110,9 @@ resource "aws_s3_bucket_policy" "webiste_content" {
 
 resource "aws_s3_bucket_website_configuration" "webiste_content" {
   // Websit hosting config for not using cloudfront
-  count  = !var.setup-CloudFront || !var.setup-CloudFront-OAI ? 1 : 0
+  count  = !var.setup-CloudFront || !var.setup-CloudFront-OAC ? 1 : 0
   bucket = aws_s3_bucket.webiste_content.id
-  
+
   index_document {
     suffix = var.website-Index-Document
   }
@@ -129,14 +134,19 @@ locals {
     bucket-origin-id = "S3-${aws_s3_bucket.webiste_content.bucket_regional_domain_name}"
   }
 }
-resource "aws_cloudfront_origin_access_identity" "webiste_content-bucket-webiste_content" {
-  count = var.setup-CloudFront && var.setup-CloudFront-OAI ? 1 : 0
+
+resource "aws_cloudfront_origin_access_control" "webiste_content-bucket-webiste_content" {
+  count                             = var.setup-CloudFront && var.setup-CloudFront-OAC ? 1 : 0
+  name                              = "${replace(var.project-name, " ", "-")}-webiste_content-bucket"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
 resource "aws_cloudfront_distribution" "webiste_content" {
   count = var.setup-CloudFront ? 1 : 0
 
-  enabled  = true
+  enabled             = true
   default_root_object = "index.html"
 
   viewer_certificate {
@@ -149,23 +159,17 @@ resource "aws_cloudfront_distribution" "webiste_content" {
     }
   }
 
-  // bucket origin
   origin {
-    domain_name = var.setup-CloudFront-OAI ? aws_s3_bucket.webiste_content.bucket_regional_domain_name : aws_s3_bucket_website_configuration.webiste_content[0].website_endpoint
-    origin_id = local.cloudfront.bucket-origin-id
-    dynamic "s3_origin_config" {
-      for_each = var.setup-CloudFront-OAI ? [0]: []
-      content {
-        origin_access_identity = aws_cloudfront_origin_access_identity.webiste_content-bucket-webiste_content[0].cloudfront_access_identity_path
-      }
-    }
+    domain_name              = var.setup-CloudFront-OAC ? aws_s3_bucket.webiste_content.bucket_regional_domain_name : aws_s3_bucket_website_configuration.webiste_content[0].website_endpoint
+    origin_id                = local.cloudfront.bucket-origin-id
+    origin_access_control_id = var.setup-CloudFront-OAC ? aws_cloudfront_origin_access_control.webiste_content-bucket-webiste_content[0].id : null
   }
 
   default_cache_behavior {
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD", "OPTIONS"]
 
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = var.CloudFront-Viewer_Protocal_Policy
 
     // Get from console
     cache_policy_id          = "658327ea-f89d-4fab-a63d-7e88639e58f6" // Managed-CachingOptimized
@@ -176,18 +180,18 @@ resource "aws_cloudfront_distribution" "webiste_content" {
 
   // 404 and 403 response for bucket
   dynamic "custom_error_response" {
-    for_each = var.setup-CloudFront-OAI && var.website-Error-Document != null ? [0] : []
+    for_each = var.website-Error-Document != null ? [0] : []
     content {
-      error_code = 404
-      response_code = 404
+      error_code         = 404
+      response_code      = 404
       response_page_path = var.website-Error-Document
     }
   }
   dynamic "custom_error_response" {
-    for_each = var.setup-CloudFront-OAI && var.website-Error-Document != null ? [0] : []
+    for_each = var.website-Error-Document != null ? [0] : []
     content {
-      error_code = 403
-      response_code = 403
+      error_code         = 403
+      response_code      = 403
       response_page_path = var.website-Error-Document
     }
   }

@@ -11,5 +11,5 @@ output "cloudfront-endpoint" {
 }
 
 output "s3-bucket-website" {
-  value = var.setup-CloudFront && !var.setup-CloudFront-OAI ? aws_s3_bucket_website_configuration.webiste_content[0].website_endpoint : null
+  value = var.setup-CloudFront && !var.setup-CloudFront-OAC ? aws_s3_bucket_website_configuration.webiste_content[0].website_endpoint : null
 }
