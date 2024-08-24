@@ -107,12 +107,15 @@ Reference Links:
 
 ```dockerfile
 RUN sudo apt-get update \
-    && apt-get install -y curl \
+    && sudo apt-get install -y curl \
     && curl -fsSL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource_setup.sh \
     && sudo -E bash /tmp/nodesource_setup.sh \
     && sudo apt-get update \
     && sudo apt-get install -y nodejs \
     && rm /tmp/nodesource_setup.sh
+
+RUN sudo npm -g install typescript \
+    && sudo npm install -g aws-cdk
 ```
 
 Reference Links:
