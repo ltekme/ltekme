@@ -229,7 +229,7 @@ Refer to [AWS documentation on settng up Hosted Zone](https://aws.amazon.com/get
     4. Select the website endpoint for your bucket. If first and second field are correct it should appear automatically when you click on it.
     5. click `Create records`
 
-    (images/Step4.4.png)![Add Records]
+    ![Add Records](images/Step4.4.png)
 
 5. Test your website
 
