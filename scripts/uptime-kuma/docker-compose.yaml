@@ -8,5 +8,5 @@ services:
     restart: always
     
 volumes:
-      - kuma_data:/app/data
+    kuma_data:
     
