@@ -1,0 +1,16 @@
+services:
+  ntp:
+    image: dockurr/chrony
+    container_name: ntp
+    environment:
+      NTP_SERVERS: >
+        0.pool.ntp.org,
+        1.pool.ntp.org,
+        time.cloudflare.com,
+        time1.google.com,
+        time2.google.com,
+        ntp1.aliyun.com,
+        ntp2.aliyun.com
+    ports:
+      - 123:123/udp
+    restart: always
