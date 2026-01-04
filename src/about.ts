@@ -1,5 +1,5 @@
 export interface IHomeContentObj {
-    title: string
+    title?: string
     items: IHomeContentObjItem[]
 }
 
@@ -37,25 +37,7 @@ export const aboutData: IHomeContentObj[] = [
                 iconAlt: "github",
                 linkText: "ltekme",
                 link: "https://github.com/ltekme",
-                linkTextSuffix: "(projects)"
-            }
-        ]
-    },
-    {
-        title: "Shiney ✨",
-        items: [
-            {
-                iconText: "🕓",
-                itemText: "Clock",
-                linkText: "annual-clock",
-                link: "/clock"
-            },
-            {
-                itemText: "All-In-One Docker Compose",
-                iconAlt: "guacamole logo",
-                iconPath: "/icons/Apache_Guacamole_logo.png",
-                linkText: "Guacamole-Server",
-                link: "https://github.com/ltekme/Guacamole-Server"
+                linkTextSuffix: "(thingies)"
             }
         ]
     }
