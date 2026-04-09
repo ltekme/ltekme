@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClockDisplay } from "./clock";
+import { Center, Banner } from "@/src/components/Ui";
 
 export const metadata: Metadata = {
   title: "Ltek.me | Clock",
@@ -7,5 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function ClockPage() {
-  return (<ClockDisplay />);
+  return (<Center><Banner>
+    <ClockDisplay />
+  </Banner></Center>);
 }

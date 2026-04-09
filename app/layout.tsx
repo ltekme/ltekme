@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react"
 
-import { Center, Banner } from "@/src/components/Ui";
 import "@/src/globals.css";
 
 export const metadata: Metadata = {
@@ -20,8 +19,8 @@ export default function RootLayout({
         <link rel="icon" href="/icon.ico" sizes="any" />
       </head>
       <Analytics />
-      <body className={`select-none`}>
-        <Center><Banner>{children}</Banner></Center>
+      <body>
+        {children}
       </body>
     </html>
   );
