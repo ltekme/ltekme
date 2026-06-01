@@ -20,7 +20,12 @@ const KeepAndroidOpen = () => {
     const tgt = new Date("2026-09-01T00:00:00Z").getTime();
     const [remainingText, setRemainingText] = useState(formatCountdown(tgt - Date.now()));
 
-    window.setInterval(() => setRemainingText(formatCountdown(tgt - Date.now())), 1000);
+    if (typeof window !== "undefined") {
+        // Client-side-only code
+        // Vercel will have a hissy fit without it
+        window.setInterval(() => setRemainingText(formatCountdown(tgt - Date.now())), 1000);
+
+    }
 
     return (
         <div>
